@@ -1,0 +1,26 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+body{
+    white-space: nowrap;
+}
+#outerdiv{
+    margin: 10px;
+    height: 200px;
+    width: 50%;
+    display: block;
+    background-color: blue;
+}
+#chatbox{
+    border: 1px solid black;
+    width: 100%;
+    vertical-align: top;
+}
+#chatbox tr{
+    vertical-align: bottom;
+}
+#chatbox td{
+    text-align: left;
+    padding: 5px 0px;
+}

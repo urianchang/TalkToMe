@@ -1,4 +1,4 @@
-*{margin:0;}
+/**{margin:0;}
 #outerdiv {
   height : 200px;
   width: 400px;
@@ -17,4 +17,46 @@
 html, body{
     height: 99%;
     overflow:hidden;
+}*/
+*{
+    margin: 0px;
+    padding: 0px;
+}
+body{
+    white-space: nowrap;
+}
+#outerdiv{
+    margin: 10px;
+    height: 200px;
+    width: 50%;
+    display: block;
+    background-color: blue;
+    overflow-y: hidden;
+}
+#outerdiv:hover{
+    overflow-y: auto;
+}
+#chatbox{
+    border: 1px solid black;
+    table-layout: fixed;
+    width: 100%;
+    height: 200px;
+    white-space: normal;
+    vertical-align: top;
+}
+#chatbox tr{
+    vertical-align: bottom;
+}
+.msgdata{
+    width: 65%;
+    vertical-align: top;
+}
+.userdata {
+    vertical-align: top;
+    width: 35%;
+    border-right: 1px solid black;
+}
+#chatbox td{
+    text-align: left;
+    padding: 5px 0px 5px 0px;
 }

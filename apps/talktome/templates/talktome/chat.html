@@ -5,35 +5,61 @@
         <title>Chat</title>
         {% load staticfiles %}
         <link rel="stylesheet" type="text/css" href={%static "talktome/css/main.css"%}>
+        <!-- <link rel="stylesheet" type="text/css" href="style.css"> -->
+        <script src= 'http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
+        <!-- <script type ="text/javascript" src= "{% static 'talktome/js/main.js' %}"></script> -->
+        <script>
+            $(document).ready(function(){
+                // var DIV1 = $('#thisdiv').get(0);
+                $('#outerdiv').get(0).scrollTop = $('#outerdiv').get(0).scrollHeight;
+                setInterval(function(){
+                    $('#outerdiv').load('/chatroom #chatbox', function(){
+                    //   var DIV2 = $('#outerdiv');
+                    //   DIV2.scrollTop = DIV2.scrollHeight;
+                        $('#outerdiv').get(0).scrollTop = $('#outerdiv').get(0).scrollHeight;
+                    });
+                    console.log('hi');
+                }, 1500);
+            });
+        </script>
     </head>
-    <script src= 'http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
-    <script type ="text/javascript" src= "{% static 'talktome/js/main.js' %}"></script>
     <body>
-        {% if messages %}
-        <ul class="messages">
-            {% for message in messages %}
-            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-            {% endfor %}
-        </ul>
-        {% endif %}
-        {{room.name}}<br>
-        {{room.count}}<br>
-        <div id="outerdiv">
-        <div id="thisdiv">
-            {% for message in room.messages.all %}
-            {{message.creator.username}}: {{message.content}}<br>
-            {% endfor %}
+        <div class="boop">
+            {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
         </div>
-      </div>
-        <form action='/addmessage/{{room.id}}' method='POST'>
-        {% csrf_token %}
-        <input type="text" name="message"><br>
-        <input type="submit" value="Message" class="add">
-        </form>
-
-        <form action='/logout' method='POST'>
-        {% csrf_token %}
-        <input type="submit" value="logout">
-        </form>
+        <p>{{room.name}}</p>
+        <p>{{room.count}}</p>
+        <div id="outerdiv">
+            <table id="chatbox">
+                {% for message in room.messages.all %}
+                <tr>
+                    <td class="userdata">{{message.creator.username}} ({{message.created_at}}): </td>
+                    <td class="msgdata">{{message.content}}</td>
+                </tr>
+                {% endfor %}
+            </table>
+            <!-- <div id="thisdiv">
+                {% for message in room.messages.all %}
+                {{message.creator.username}}: {{message.content}}<br>
+                {% endfor %}
+            </div> -->
+        </div>
+        <hr>
+        <div class="user-input">
+            <form action='/addmessage/{{room.id}}' method='POST'>
+                {% csrf_token %}
+                <label for="typing-area"><input type="text" name="message"><input type="submit" value="Message" class="add"></label>
+            </form>
+            <form action='/logout' method='POST'>
+                {% csrf_token %}
+                <input type="submit" value="logout">
+            </form>
+        </div>
     </body>
 </html>
